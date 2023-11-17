@@ -5,84 +5,74 @@ using YourRoom.Services;
 
 namespace YourRoom.Controllers
 {
-    public class HospedeController
+    public class QuartoController
     {
         #region Variaveis Locais
-        // Importa os métodos que realizam interação com o banco de dados
         DataBaseSqlServer dataBase = new DataBaseSqlServer();
         #endregion
 
         #region Inserir
-        // Insere na tabela de reserva
-        public int Inserir(Hospede hospede)
+        public int Inserir(Quarto quarto)
         {
-            // Limpa os parametros que podem estar na Query
             dataBase.ClearParameter();
 
-            // Query que vai ser executada
-            string queryInsertReserva =
-            "INSERT INTO Hospede (CPF, Nome, DtNascimento, Telefone) " +
-            "VALUES (@CPF, @Nome, @DtNascimento, @Telefone)";
+        string query =
+            "INSERT INTO Quarto (Numero, Categoria, Status, Diaria, Capacidade) " +
+            "VALUES (@Numero, @Categoria, @Status, @Diaria, @Capacidade)";
 
-            //Adiona os valores de cada parametro que esta sendo utilizado
-            //dataBase.AddParameter("@Quarto",         reserva.Quarto); 
-            //dataBase.AddParameter("@Hospede",        reserva.Hospede);
-            dataBase.AddParameter("@CPF", hospede.CPF);
-            dataBase.AddParameter("@Nome", hospede.Nome);
-            dataBase.AddParameter("@DtNascimento", hospede.DtNascimento);
-            dataBase.AddParameter("@Telefone", hospede.Telefone);
+            dataBase.AddParameter("@Numero", quarto.Numero);
+            dataBase.AddParameter("@Categoria", quarto.Categoria);
+            dataBase.AddParameter("@Status", quarto.Status);
+            dataBase.AddParameter("@Diaria", quarto.Diaria);
+            dataBase.AddParameter("@Capacidade", quarto.Capacidade);
 
-            //Solicita a camada de banco de dados a execução da query
-            dataBase.ExecuteManipulation(CommandType.Text, queryInsertReserva);
-            //Nesse momento o meu comando é executado no banco de dados
+            dataBase.ExecuteManipulation(CommandType.Text, query);
 
-            //Executar um comando no banco de dados, para recupear o ID criado
-            //pelo Identity
-            //SELECT @@IDENTITY
             return Convert.ToInt32(dataBase.ExecuteQueryScalar(
                 CommandType.Text, "SELECT @@IDENTITY"));
         }
         #endregion
 
         #region Alterar
-        // Atualiza na tabela de reserva
-        public int Alterar(Hospede hospede)
+        public int Alterar(Quarto quarto)
         {
-            string queryAlterar =
-                "UPDATE Hospede SET " +
-                "CPF = @CPF, " +
-                "Nome = @Nome, " +
-                "DtNascimento = @DtNascimento, " +
-                "Telefone = @Telefone, " +
-                "WHERE IdHospede = @IdHospede";
+            string query =
+                "UPDATE Quarto SET " +
+                "Numero = @Numero, " +
+                "Categoria = @Categoria, " +
+                "Status = @Status, " +
+                "Diaria = @Diaria, " +
+                "Capacidade = @Capacidade, " +
+                "WHERE IdQuarto = @IdQuarto";
 
             dataBase.ClearParameter();
-            dataBase.AddParameter("@IdHospede", hospede.IdHospede);
-            dataBase.AddParameter("@CPF", hospede.CPF);
-            dataBase.AddParameter("@Nome", hospede.Nome);
-            dataBase.AddParameter("@DtNascimento", hospede.DtNascimento);
-            dataBase.AddParameter("@Telefone", hospede.Telefone);
+            dataBase.AddParameter("@IdQuarto", quarto.IdQuarto);
+            dataBase.AddParameter("@Numero", quarto.Numero);
+            dataBase.AddParameter("@Categoria", quarto.Categoria);
+            dataBase.AddParameter("@Status", quarto.Status);
+            dataBase.AddParameter("@Diaria", quarto.Diaria);
+            dataBase.AddParameter("@Capacidade", quarto.Capacidade);
 
-            return dataBase.ExecuteManipulation(CommandType.Text, queryAlterar);
+            return dataBase.ExecuteManipulation(CommandType.Text, query);
         }
         #endregion
 
         #region Apagar
-        public int Apagar(int IdHospede)
+        public int Apagar(int IdQuarto)
         {
-            string queryApagar =
-                "DELETE FROM Hospede " +
-                "WHERE IdHospede = @IdHospede";
+            string query =
+                "DELETE FROM Quarto " +
+                "WHERE IdQuarto = @IdQuarto";
 
             dataBase.ClearParameter();
-            dataBase.AddParameter("@IdHospede", IdHospede);
+            dataBase.AddParameter("@IdQuarto", IdQuarto);
 
-            return dataBase.ExecuteManipulation(CommandType.Text, queryApagar);
+            return dataBase.ExecuteManipulation(CommandType.Text, query);
         }
         #endregion
 
         #region ConsultarPorNome
-        public HospedeCollection ConsultarPorNome(string nome)
+        public HospedeCollection ConsultarPorNumero(int numero)
         {
             HospedeCollection hospedeCollection = new HospedeCollection();
             string query =
@@ -90,7 +80,7 @@ namespace YourRoom.Controllers
                 "WHERE Nome LIKE '%' + @Nome + '%'";
 
             dataBase.ClearParameter();
-            dataBase.AddParameter("@Nome", nome.Trim());
+            dataBase.AddParameter("@Nome", numero);
 
             DataTable dataTable = dataBase.ExecuteQuery(CommandType.Text, query);
 
@@ -134,6 +124,9 @@ namespace YourRoom.Controllers
                 hospede.Nome = Convert.ToString(dataTable.Rows[0]["Nome"]);
                 hospede.CPF = Convert.ToString(dataTable.Rows[0]["CPF"]);
 
+                //Usar no HospedeController
+                //reserva.Hospede = ConsultarPorId(Convert.ToInt32(dataTable.Rows[0]["IdHospede"]));
+
                 if (!(dataTable.Rows[0]["DtNascimento"] is DBNull))
                     hospede.DtNascimento =
                         Convert.ToDateTime(dataTable.Rows[0]["DtNascimento"]);
@@ -142,7 +135,7 @@ namespace YourRoom.Controllers
                 //Adicione o objeto cliente na Coleção de Clientes
                 //Ou seja cada linha retorna será um objeto
                 //E a Collection tera um objeto de cada linha
-                return cliente;
+                return hospede;
             }
             else
                 return null;
