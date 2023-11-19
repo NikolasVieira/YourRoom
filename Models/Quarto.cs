@@ -8,6 +8,7 @@ namespace YourRoom.Models
 {
     public class Quarto
     {
+        public int IdQuarto { get; set; } 
         public int Numero { get; set; } // Número do Quarto
         public string Categoria { get; set; } // Categoria do Quarto
         public string Status { get; set; } // Status do Quarto

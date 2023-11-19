@@ -8,8 +8,7 @@ namespace YourRoom.Models
 {
     public class Reserva
     {
-        public Quarto Quarto { get; set; } // O Quarto da reserca
-        public Hospede Hospede { get; set; } // O Hospede que fez a reserva
+        public int IdReserva { get; set; }
         public int QtdHospedes { get; set; } // A quantidade de Hospede 
         public DateTime DataReserva { get; set; } // A data que a reserva foi feita
         public DateTime DataCheckIn { get; set; } // A data que o check-in deve ser feito
@@ -17,5 +16,7 @@ namespace YourRoom.Models
         public string StatusReserva { get; set; } // Status da Reserva (Pendente, Ativa, Encerrado)
         public string StatusCheckIn { get; set; } // Status da Reserva (Pendente, Encerrado)
         public string StatusCheckOut { get; set; } // Status da Reserva (Pendente, Encerrado)
+        public Quarto Quarto { get; set; } // O Quarto da reserca
+        public Hospede Hospede { get; set; } // O Hospede que fez a reserva
     }
 }

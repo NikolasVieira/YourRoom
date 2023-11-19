@@ -20,7 +20,7 @@ namespace YourRoom.Controllers
             dataBase.ClearParameter();
 
             // Query que vai ser executada
-            string queryInsertReserva =
+            string query =
             "INSERT INTO Hospede (CPF, Nome, DtNascimento, Telefone) " +
             "VALUES (@CPF, @Nome, @DtNascimento, @Telefone)";
 
@@ -33,7 +33,7 @@ namespace YourRoom.Controllers
             dataBase.AddParameter("@Telefone", hospede.Telefone);
 
             //Solicita a camada de banco de dados a execução da query
-            dataBase.ExecuteManipulation(CommandType.Text, queryInsertReserva);
+            dataBase.ExecuteManipulation(CommandType.Text, query);
             //Nesse momento o meu comando é executado no banco de dados
 
             //Executar um comando no banco de dados, para recupear o ID criado
@@ -48,7 +48,7 @@ namespace YourRoom.Controllers
         // Atualiza na tabela de reserva
         public int Alterar(Hospede hospede)
         {
-            string queryAlterar =
+            string query =
                 "UPDATE Hospede SET " +
                 "CPF = @CPF, " +
                 "Nome = @Nome, " +
@@ -63,21 +63,21 @@ namespace YourRoom.Controllers
             dataBase.AddParameter("@DtNascimento", hospede.DtNascimento);
             dataBase.AddParameter("@Telefone", hospede.Telefone);
 
-            return dataBase.ExecuteManipulation(CommandType.Text, queryAlterar);
+            return dataBase.ExecuteManipulation(CommandType.Text, query);
         }
         #endregion
 
         #region Apagar
         public int Apagar(int IdHospede)
         {
-            string queryApagar =
+            string query =
                 "DELETE FROM Hospede " +
                 "WHERE IdHospede = @IdHospede";
 
             dataBase.ClearParameter();
             dataBase.AddParameter("@IdHospede", IdHospede);
 
-            return dataBase.ExecuteManipulation(CommandType.Text, queryApagar);
+            return dataBase.ExecuteManipulation(CommandType.Text, query);
         }
         #endregion
 

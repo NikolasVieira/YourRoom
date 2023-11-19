@@ -15,8 +15,8 @@ namespace YourRoom.Services
             SqlConnection connection = new SqlConnection();
 
             // Define os PARAMETROS de CONEXÃO
-            connection.ConnectionString = 
-                "Data Source = ;" + // Nome da CONEXÃO
+            connection.ConnectionString =
+                "Data Source = DESKTOP-QAK9G96;" + // Nome da CONEXÃO
                 "Initial Catalog = DB_YourRoom;" + // Nome do DATABASE
                 "Integrated Security = SSPI;" + // Tipo de ACESSO
                 "User Instance = False;";
