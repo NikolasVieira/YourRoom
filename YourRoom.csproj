@@ -50,12 +50,6 @@
     <Compile Include="Controllers\QuartoController.cs" />
     <Compile Include="Controllers\ReservaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Models\Hospede.cs" />
     <Compile Include="Models\HospedeCollection.cs" />
     <Compile Include="Models\Quarto.cs" />
@@ -67,17 +61,24 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DataBaseSqlServer.cs" />
+    <Compile Include="Services\FormType.cs" />
     <Compile Include="Views\frmHospede.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\frmHospede.Designer.cs">
       <DependentUpon>frmHospede.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\frmHospedeRegister.cs">
+    <Compile Include="Views\frmHospedeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\frmHospedeRegister.Designer.cs">
-      <DependentUpon>frmHospedeRegister.cs</DependentUpon>
+    <Compile Include="Views\frmHospedeForm.Designer.cs">
+      <DependentUpon>frmHospedeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmPrincipal.Designer.cs">
+      <DependentUpon>frmPrincipal.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\frmQuarto.cs">
       <SubType>Form</SubType>
@@ -85,11 +86,11 @@
     <Compile Include="Views\frmQuarto.Designer.cs">
       <DependentUpon>frmQuarto.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\frmQuartoRegister.cs">
+    <Compile Include="Views\frmQuartoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\frmQuartoRegister.Designer.cs">
-      <DependentUpon>frmQuartoRegister.cs</DependentUpon>
+    <Compile Include="Views\frmQuartoForm.Designer.cs">
+      <DependentUpon>frmQuartoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\frmReserva.cs">
       <SubType>Form</SubType>
@@ -97,11 +98,11 @@
     <Compile Include="Views\frmReserva.Designer.cs">
       <DependentUpon>frmReserva.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\frmReservaRegister.cs">
+    <Compile Include="Views\frmReservaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\frmReservaRegister.Designer.cs">
-      <DependentUpon>frmReservaRegister.cs</DependentUpon>
+    <Compile Include="Views\frmReservaForm.Designer.cs">
+      <DependentUpon>frmReservaForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\frmUsuario.cs">
       <SubType>Form</SubType>
@@ -109,15 +110,12 @@
     <Compile Include="Views\frmUsuario.Designer.cs">
       <DependentUpon>frmUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\frmUsuarioRegister.cs">
+    <Compile Include="Views\frmUsuarioForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\frmUsuarioRegister.Designer.cs">
-      <DependentUpon>frmUsuarioRegister.cs</DependentUpon>
+    <Compile Include="Views\frmUsuarioForm.Designer.cs">
+      <DependentUpon>frmUsuarioForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

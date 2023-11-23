@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace YourRoom.Views
 {
-    public partial class frmHospedeRegister : Form
+    public partial class frmReservaForm : Form
     {
-        public frmHospedeRegister()
+        public frmReservaForm()
         {
             InitializeComponent();
         }

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace YourRoom.Views
 {
-    public partial class frmUsuarioRegister : Form
+    public partial class frmQuartoForm : Form
     {
-        public frmUsuarioRegister()
+        public frmQuartoForm()
         {
             InitializeComponent();
         }

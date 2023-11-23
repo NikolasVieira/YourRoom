@@ -7,59 +7,44 @@ namespace YourRoom.Controllers
 {
     public class HospedeController
     {
-        #region Variaveis Locais
-        // Importa os métodos que realizam interação com o banco de dados
         DataBaseSqlServer dataBase = new DataBaseSqlServer();
-        #endregion
 
         #region Inserir
-        // Insere na tabela de reserva
         public int Inserir(Hospede hospede)
         {
-            // Limpa os parametros que podem estar na Query
             dataBase.ClearParameter();
 
-            // Query que vai ser executada
             string query =
-            "INSERT INTO Hospede (CPF, Nome, DtNascimento, Telefone) " +
-            "VALUES (@CPF, @Nome, @DtNascimento, @Telefone)";
+            "INSERT INTO tb_hospedes (nome, cpf, dt_nascimento, telefone) " +
+            "VALUES (@Nome, @CPF, @DtNascimento, @Telefone)";
 
-            //Adiona os valores de cada parametro que esta sendo utilizado
-            //dataBase.AddParameter("@Quarto",         reserva.Quarto); 
-            //dataBase.AddParameter("@Hospede",        reserva.Hospede);
-            dataBase.AddParameter("@CPF", hospede.CPF);
             dataBase.AddParameter("@Nome", hospede.Nome);
+            dataBase.AddParameter("@CPF", hospede.CPF);
             dataBase.AddParameter("@DtNascimento", hospede.DtNascimento);
             dataBase.AddParameter("@Telefone", hospede.Telefone);
 
-            //Solicita a camada de banco de dados a execução da query
             dataBase.ExecuteManipulation(CommandType.Text, query);
-            //Nesse momento o meu comando é executado no banco de dados
 
-            //Executar um comando no banco de dados, para recupear o ID criado
-            //pelo Identity
-            //SELECT @@IDENTITY
             return Convert.ToInt32(dataBase.ExecuteQueryScalar(
                 CommandType.Text, "SELECT @@IDENTITY"));
         }
         #endregion
 
         #region Alterar
-        // Atualiza na tabela de reserva
         public int Alterar(Hospede hospede)
         {
             string query =
-                "UPDATE Hospede SET " +
-                "CPF = @CPF, " +
-                "Nome = @Nome, " +
-                "DtNascimento = @DtNascimento, " +
-                "Telefone = @Telefone, " +
-                "WHERE IdHospede = @IdHospede";
+                "UPDATE tb_hospedes SET " +
+                "nome = @Nome, " +
+                "cpf = @CPF, " +
+                "dt_nascimento = @DtNascimento, " +
+                "telefone = @Telefone, " +
+                "WHERE id = @IdHospede";
 
             dataBase.ClearParameter();
             dataBase.AddParameter("@IdHospede", hospede.IdHospede);
-            dataBase.AddParameter("@CPF", hospede.CPF);
             dataBase.AddParameter("@Nome", hospede.Nome);
+            dataBase.AddParameter("@CPF", hospede.CPF);
             dataBase.AddParameter("@DtNascimento", hospede.DtNascimento);
             dataBase.AddParameter("@Telefone", hospede.Telefone);
 
@@ -71,8 +56,8 @@ namespace YourRoom.Controllers
         public int Apagar(int IdHospede)
         {
             string query =
-                "DELETE FROM Hospede " +
-                "WHERE IdHospede = @IdHospede";
+                "DELETE FROM tb_hospedes " +
+                "WHERE id = @IdHospede";
 
             dataBase.ClearParameter();
             dataBase.AddParameter("@IdHospede", IdHospede);
@@ -86,8 +71,8 @@ namespace YourRoom.Controllers
         {
             HospedeCollection hospedeCollection = new HospedeCollection();
             string query =
-                "SELECT * FROM Hospede " +
-                "WHERE Nome LIKE '%' + @Nome + '%'";
+                "SELECT * FROM tb_hospedes " +
+                "WHERE nome LIKE '%' + @Nome + '%'";
 
             dataBase.ClearParameter();
             dataBase.AddParameter("@Nome", nome.Trim());
@@ -98,14 +83,14 @@ namespace YourRoom.Controllers
             {
                 Hospede hospede = new Hospede();
 
-                hospede.IdHospede = Convert.ToInt32(dataRow["IdHospede"]);
-                hospede.Nome = Convert.ToString(dataRow["Nome"]);
+                hospede.IdHospede = Convert.ToInt32(dataRow["id"]);
+                hospede.Nome = Convert.ToString(dataRow["nome"]);
                 hospede.CPF = Convert.ToString(dataRow["cpf"]);
 
                 if (!(dataRow["DtNascimento"] is DBNull))
                     hospede.DtNascimento =
-                        Convert.ToDateTime(dataRow["DtNascimento"]);
-                hospede.Telefone = Convert.ToString(dataRow["Telefone"]);
+                        Convert.ToDateTime(dataRow["dt_nascimento "]);
+                hospede.Telefone = Convert.ToString(dataRow["telefone"]);
 
                 hospedeCollection.Add(hospede);
             }
@@ -117,8 +102,8 @@ namespace YourRoom.Controllers
         public Hospede ConsultarPorId(int IdHospede)
         {
             string query =
-                "SELECT * FROM Hospede " +
-                "WHERE IdHospede = @IdHospede";
+                "SELECT * FROM tb_hospedes " +
+                "WHERE id = @IdHospede";
 
             dataBase.ClearParameter();
             dataBase.AddParameter("@IdHospede", IdHospede);
@@ -130,19 +115,17 @@ namespace YourRoom.Controllers
             {
                 Hospede hospede = new Hospede();
 
-                hospede.IdHospede = Convert.ToInt32(dataTable.Rows[0]["IdHospede"]);
-                hospede.Nome = Convert.ToString(dataTable.Rows[0]["Nome"]);
-                hospede.CPF = Convert.ToString(dataTable.Rows[0]["CPF"]);
+                hospede.IdHospede = Convert.ToInt32(dataTable.Rows[0]["id"]);
+                hospede.Nome = Convert.ToString(dataTable.Rows[0]["nome"]);
+                hospede.CPF = Convert.ToString(dataTable.Rows[0]["cpf"]);
 
-                if (!(dataTable.Rows[0]["DtNascimento"] is DBNull))
+                if (!(dataTable.Rows[0]["dt_nascimento "] is DBNull))
                     hospede.DtNascimento =
-                        Convert.ToDateTime(dataTable.Rows[0]["DtNascimento"]);
-                hospede.Telefone = Convert.ToString(dataTable.Rows[0]["Telefone"]);
+                        Convert.ToDateTime(dataTable.Rows[0]["dt_nascimento "]);
+                hospede.Telefone = Convert.ToString(dataTable.Rows[0]["telefone"]);
 
-                //Adicione o objeto cliente na Coleção de Clientes
-                //Ou seja cada linha retorna será um objeto
-                //E a Collection tera um objeto de cada linha
-                return cliente;
+
+                return hospede;
             }
             else
                 return null;
