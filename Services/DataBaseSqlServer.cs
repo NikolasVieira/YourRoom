@@ -17,7 +17,7 @@ namespace YourRoom.Services
             // Define os PARAMETROS de CONEXÃO
             connection.ConnectionString =
                 "Data Source = DESKTOP-QAK9G96;" + // Nome da CONEXÃO
-                "Initial Catalog = DB_YourRoom;" + // Nome do DATABASE
+                "Initial Catalog = db_your_room;" + // Nome do DATABASE
                 "Integrated Security = SSPI;" + // Tipo de ACESSO
                 "User Instance = False;";
 
@@ -56,8 +56,7 @@ namespace YourRoom.Services
             // Para cada PARÂMETRO SQL na COLEÇÃO de PARÂMETROS executa
             foreach (SqlParameter parameter in parameterCollection)
             {
-                // Executa MÉTODO que adiciona os PARÂMETROS
-                AddParameter(parameter.ParameterName, parameter.Value);
+                command.Parameters.Add(new SqlParameter(parameter.ParameterName, parameter.Value));
             }
             // Retorna o COMANDO final
             return command;
@@ -69,8 +68,18 @@ namespace YourRoom.Services
             // Tenta estabelecer CONEXÃO
             try
             {
-                // Armazena o COMANDO SQL gerado pelo MÉTODO
-                SqlCommand command = CreateSqlCommand(commandType, operationName);
+                // Estabelece a CONEXÃO com o BANCO DE DADOS
+                SqlConnection connection = CreateConnection();
+                SqlCommand command = connection.CreateCommand();
+
+                command.CommandType = commandType; // Tipo de OPERAÇÃO (STORED PROCEDURE, UPDATE, etc...
+                command.CommandText = operationName; // Nome da OPERAÇÃO
+
+                // Para cada PARÂMETRO SQL na COLEÇÃO de PARÂMETROS executa
+                foreach (SqlParameter parameter in parameterCollection)
+                {
+                    command.Parameters.Add(new SqlParameter(parameter.ParameterName, parameter.Value));
+                }
                 // Retorna o número de linhas afetadas pela EXECUÇÃO do COMANDO SQL
                 return command.ExecuteNonQuery();
             }
@@ -91,9 +100,19 @@ namespace YourRoom.Services
             // Tenta estabelecer CONEXÃO
             try
             {
-                // Armazena o COMANDO SQL gerado pelo MÉTODO
-                SqlCommand command = CreateSqlCommand(commandType, operationName);
+                // Estabelece a CONEXÃO com o BANCO DE DADOS
+                SqlConnection connection = CreateConnection();
+                SqlCommand command = connection.CreateCommand();
 
+                command.CommandType = commandType; // Tipo de OPERAÇÃO (STORED PROCEDURE, UPDATE, etc...
+                command.CommandText = operationName; // Nome da OPERAÇÃO
+
+                // Para cada PARÂMETRO SQL na COLEÇÃO de PARÂMETROS executa
+                foreach (SqlParameter parameter in parameterCollection)
+                {
+                    // Executa MÉTODO que adiciona os PARÂMETROS
+                    command.Parameters.Add(new SqlParameter(parameter.ParameterName, parameter.Value));
+                }
                 // Armazena em um ADAPTADOR DE DADOS o COMANDO SQL
                 SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
 
@@ -123,8 +142,18 @@ namespace YourRoom.Services
             // Tenta estabelecer CONEXÃO
             try
             {
-                // Armazena o COMANDO SQL gerado pelo MÉTODO
-                SqlCommand command = CreateSqlCommand(commandType, operationName);
+                // Estabelece a CONEXÃO com o BANCO DE DADOS
+                SqlConnection connection = CreateConnection();
+                SqlCommand command = connection.CreateCommand();
+
+                command.CommandType = commandType; // Tipo de OPERAÇÃO (STORED PROCEDURE, UPDATE, etc...
+                command.CommandText = operationName; // Nome da OPERAÇÃO
+
+                // Para cada PARÂMETRO SQL na COLEÇÃO de PARÂMETROS executa
+                foreach (SqlParameter parameter in parameterCollection)
+                {
+                    command.Parameters.Add(new SqlParameter(parameter.ParameterName, parameter.Value));
+                }
 
                 // Retorna o valor da primeira COLUNA na primeira LINHA do COMANDO SQL executado
                 return command.ExecuteScalar();

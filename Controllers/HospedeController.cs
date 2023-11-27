@@ -14,9 +14,7 @@ namespace YourRoom.Controllers
         {
             dataBase.ClearParameter();
 
-            string query =
-            "INSERT INTO tb_hospedes (nome, cpf, dt_nascimento, telefone) " +
-            "VALUES (@Nome, @CPF, @DtNascimento, @Telefone)";
+            string query = "EXEC sp_insert_hospede @Nome, @CPF, @DtNascimento, @Telefone";
 
             dataBase.AddParameter("@Nome", hospede.Nome);
             dataBase.AddParameter("@CPF", hospede.CPF);
@@ -26,7 +24,7 @@ namespace YourRoom.Controllers
             dataBase.ExecuteManipulation(CommandType.Text, query);
 
             return Convert.ToInt32(dataBase.ExecuteQueryScalar(
-                CommandType.Text, "SELECT @@IDENTITY"));
+                CommandType.Text, "SELECT MAX(id) FROM tb_hospedes"));
         }
         #endregion
 
@@ -38,7 +36,7 @@ namespace YourRoom.Controllers
                 "nome = @Nome, " +
                 "cpf = @CPF, " +
                 "dt_nascimento = @DtNascimento, " +
-                "telefone = @Telefone, " +
+                "telefone = @Telefone " +
                 "WHERE id = @IdHospede";
 
             dataBase.ClearParameter();
@@ -72,10 +70,10 @@ namespace YourRoom.Controllers
             HospedeCollection hospedeCollection = new HospedeCollection();
             string query =
                 "SELECT * FROM tb_hospedes " +
-                "WHERE nome LIKE '%' + @Nome + '%'";
+                "WHERE nome LIKE '%' + @nome + '%'";
 
             dataBase.ClearParameter();
-            dataBase.AddParameter("@Nome", nome.Trim());
+            dataBase.AddParameter("@nome", nome.Trim());
 
             DataTable dataTable = dataBase.ExecuteQuery(CommandType.Text, query);
 
@@ -87,9 +85,9 @@ namespace YourRoom.Controllers
                 hospede.Nome = Convert.ToString(dataRow["nome"]);
                 hospede.CPF = Convert.ToString(dataRow["cpf"]);
 
-                if (!(dataRow["DtNascimento"] is DBNull))
+                if (!(dataRow["dt_nascimento"] is DBNull))
                     hospede.DtNascimento =
-                        Convert.ToDateTime(dataRow["dt_nascimento "]);
+                        Convert.ToDateTime(dataRow["dt_nascimento"]);
                 hospede.Telefone = Convert.ToString(dataRow["telefone"]);
 
                 hospedeCollection.Add(hospede);
@@ -121,7 +119,7 @@ namespace YourRoom.Controllers
 
                 if (!(dataTable.Rows[0]["dt_nascimento "] is DBNull))
                     hospede.DtNascimento =
-                        Convert.ToDateTime(dataTable.Rows[0]["dt_nascimento "]);
+                        Convert.ToDateTime(dataTable.Rows[0]["dt_nascimento"]);
                 hospede.Telefone = Convert.ToString(dataTable.Rows[0]["telefone"]);
 
 

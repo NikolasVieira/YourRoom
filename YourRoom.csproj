@@ -132,6 +132,9 @@
     <EmbeddedResource Include="Views\frmHospedeForm.resx">
       <DependentUpon>frmHospedeForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmPrincipal.resx">
+      <DependentUpon>frmPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\frmQuarto.resx">
       <DependentUpon>frmQuarto.cs</DependentUpon>
     </EmbeddedResource>

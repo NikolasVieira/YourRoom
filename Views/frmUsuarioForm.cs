@@ -66,8 +66,8 @@ namespace YourRoom.Views
 
                 usuario.Nome = txtNome.Text;
                 usuario.Login = txtLogin.Text;
-                usuario.Senha = txtSenha.Text
-                usuario.NivelAcesso = cbxNivelAcesso.SelectedValue;
+                usuario.Senha = txtSenha.Text;
+                //usuario.NivelAcesso = cbxNivelAcesso.SelectedValue;
 
                 UsuarioController usuarioController = new UsuarioController();
 
