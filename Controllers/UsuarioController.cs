@@ -25,8 +25,7 @@ namespace YourRoom.Controllers
 
         dataBase.ExecuteManipulation(CommandType.Text, query);
 
-            return Convert.ToInt32(dataBase.ExecuteQueryScalar(
-                CommandType.Text, "SELECT @@IDENTITY"));
+            return Convert.ToInt32(dataBase.ExecuteQueryScalar(CommandType.Text, "EXEC sp_get_last_usuario"));
         }
         #endregion
 

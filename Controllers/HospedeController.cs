@@ -14,37 +14,30 @@ namespace YourRoom.Controllers
         {
             dataBase.ClearParameter();
 
-            string query = "EXEC sp_insert_hospede @Nome, @CPF, @DtNascimento, @Telefone";
+            string query = "EXEC sp_insert_hospede @nome, @cpf, @dt_nascimento, @telefone";
 
-            dataBase.AddParameter("@Nome", hospede.Nome);
-            dataBase.AddParameter("@CPF", hospede.CPF);
-            dataBase.AddParameter("@DtNascimento", hospede.DtNascimento);
-            dataBase.AddParameter("@Telefone", hospede.Telefone);
+            dataBase.AddParameter("@nome", hospede.Nome);
+            dataBase.AddParameter("@cpf", hospede.CPF);
+            dataBase.AddParameter("@dt_nascimento", hospede.DtNascimento);
+            dataBase.AddParameter("@telefone", hospede.Telefone);
 
             dataBase.ExecuteManipulation(CommandType.Text, query);
 
-            return Convert.ToInt32(dataBase.ExecuteQueryScalar(
-                CommandType.Text, "SELECT MAX(id) FROM tb_hospedes"));
+            return Convert.ToInt32(dataBase.ExecuteQueryScalar(CommandType.Text, "EXEC sp_get_last_hospede"));
         }
         #endregion
 
         #region Alterar
         public int Alterar(Hospede hospede)
         {
-            string query =
-                "UPDATE tb_hospedes SET " +
-                "nome = @Nome, " +
-                "cpf = @CPF, " +
-                "dt_nascimento = @DtNascimento, " +
-                "telefone = @Telefone " +
-                "WHERE id = @IdHospede";
+            string query = "EXEC sp_update_hospede @id, @nome, @cpf, @dt_nascimento, @telefone";
 
             dataBase.ClearParameter();
-            dataBase.AddParameter("@IdHospede", hospede.IdHospede);
-            dataBase.AddParameter("@Nome", hospede.Nome);
-            dataBase.AddParameter("@CPF", hospede.CPF);
-            dataBase.AddParameter("@DtNascimento", hospede.DtNascimento);
-            dataBase.AddParameter("@Telefone", hospede.Telefone);
+            dataBase.AddParameter("@id", hospede.IdHospede);
+            dataBase.AddParameter("@nome", hospede.Nome);
+            dataBase.AddParameter("@cpf", hospede.CPF);
+            dataBase.AddParameter("@dt_nascimento", hospede.DtNascimento);
+            dataBase.AddParameter("@telefone", hospede.Telefone);
 
             return dataBase.ExecuteManipulation(CommandType.Text, query);
         }
@@ -53,12 +46,10 @@ namespace YourRoom.Controllers
         #region Apagar
         public int Apagar(int IdHospede)
         {
-            string query =
-                "DELETE FROM tb_hospedes " +
-                "WHERE id = @IdHospede";
+            string query = "EXEC sp_delete_hospede @id";
 
             dataBase.ClearParameter();
-            dataBase.AddParameter("@IdHospede", IdHospede);
+            dataBase.AddParameter("@id", IdHospede);
 
             return dataBase.ExecuteManipulation(CommandType.Text, query);
         }
@@ -68,9 +59,8 @@ namespace YourRoom.Controllers
         public HospedeCollection ConsultarPorNome(string nome)
         {
             HospedeCollection hospedeCollection = new HospedeCollection();
-            string query =
-                "SELECT * FROM tb_hospedes " +
-                "WHERE nome LIKE '%' + @nome + '%'";
+
+            string query = "EXEC sp_get_hospede_nome @nome";
 
             dataBase.ClearParameter();
             dataBase.AddParameter("@nome", nome.Trim());
@@ -99,12 +89,10 @@ namespace YourRoom.Controllers
         #region ConsultarPorId
         public Hospede ConsultarPorId(int IdHospede)
         {
-            string query =
-                "SELECT * FROM tb_hospedes " +
-                "WHERE id = @IdHospede";
+            string query = "EXEC sp_get_hospede @id";
 
             dataBase.ClearParameter();
-            dataBase.AddParameter("@IdHospede", IdHospede);
+            dataBase.AddParameter("@id", IdHospede);
 
             DataTable dataTable = dataBase.ExecuteQuery(
                 CommandType.Text, query);
@@ -117,7 +105,39 @@ namespace YourRoom.Controllers
                 hospede.Nome = Convert.ToString(dataTable.Rows[0]["nome"]);
                 hospede.CPF = Convert.ToString(dataTable.Rows[0]["cpf"]);
 
-                if (!(dataTable.Rows[0]["dt_nascimento "] is DBNull))
+                if (!(dataTable.Rows[0]["dt_nascimento"] is DBNull))
+                    hospede.DtNascimento =
+                        Convert.ToDateTime(dataTable.Rows[0]["dt_nascimento"]);
+                hospede.Telefone = Convert.ToString(dataTable.Rows[0]["telefone"]);
+
+
+                return hospede;
+            }
+            else
+                return null;
+        }
+        #endregion
+
+        #region ConsultarPorCPF
+        public Hospede ConsultarPorCPF(int CPF)
+        {
+            string query = "EXEC sp_get_hospede_cpf @cpf";
+
+            dataBase.ClearParameter();
+            dataBase.AddParameter("@cpf", CPF);
+
+            DataTable dataTable = dataBase.ExecuteQuery(
+                CommandType.Text, query);
+
+            if (dataTable.Rows.Count > 0)
+            {
+                Hospede hospede = new Hospede();
+
+                hospede.IdHospede = Convert.ToInt32(dataTable.Rows[0]["id"]);
+                hospede.Nome = Convert.ToString(dataTable.Rows[0]["nome"]);
+                hospede.CPF = Convert.ToString(dataTable.Rows[0]["cpf"]);
+
+                if (!(dataTable.Rows[0]["dt_nascimento"] is DBNull))
                     hospede.DtNascimento =
                         Convert.ToDateTime(dataTable.Rows[0]["dt_nascimento"]);
                 hospede.Telefone = Convert.ToString(dataTable.Rows[0]["telefone"]);

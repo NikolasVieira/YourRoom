@@ -50,6 +50,24 @@ namespace YourRoom.Views
             dgvRegistros.Refresh(); // Reexibe o Datagrid atualizado
         }
 
+        // Método para obter as informações do registro selecionado
+        private Hospede Recuperar()
+        {
+            // Verifica se tem algum registro selecionado
+            if (dgvRegistros.SelectedRows.Count == 0)
+            {
+                // Exibe uma Mensagem de Aviso
+                MessageBox.Show("Nenhum hospede selecionado.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Não retorna nada
+                return null;
+            }
+            else
+            {
+                // Retorna o valor do registro selecionado na forma de um objeto
+                return dgvRegistros.SelectedRows[0].DataBoundItem as Hospede;
+            }
+        }
+
         // Método para Excluir o Registro Selecionado
         private void Excluir()
         {
@@ -82,25 +100,7 @@ namespace YourRoom.Views
             }
         }
 
-        // Método para obter as informações do registro selecionado
-        private Hospede Recuperar()
-        {
-            // Verifica se tem algum registro selecionado
-            if (dgvRegistros.SelectedRows.Count == 0)
-            {
-                // Exibe uma Mensagem de Aviso
-                MessageBox.Show("Nenhum hospede selecionado.",
-                    "Informação", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-                // Não retorna nada
-                return null;
-            }
-            else
-            {
-                // Retorna o valor do registro selecionado na forma de um objeto
-                return dgvRegistros.SelectedRows[0].DataBoundItem as Hospede;
-            }
-        }
+        
 
         // Método para abrir a pagina de formulario, espera de parametros o tipo de formulario e o objeto que vai ser utilizado
         private void Formulario(FormType formType, Hospede hospede)

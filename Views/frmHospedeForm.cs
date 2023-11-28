@@ -75,7 +75,10 @@ namespace YourRoom.Views
 
                 int idCadastro = 0;
 
-                if (formTypeSelecionado == FormType.Inserir) idCadastro = hospedeController.Inserir(hospede);
+                if (formTypeSelecionado == FormType.Inserir)
+                {
+                    idCadastro = hospedeController.Inserir(hospede);
+                }
                 else
                 {
                     hospede.IdHospede = int.Parse(txtId.Text);

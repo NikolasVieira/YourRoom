@@ -14,9 +14,7 @@ namespace YourRoom.Controllers
         {
             dataBase.ClearParameter();
 
-            string query =
-            "INSERT INTO tb_reservas (qtd_hospedes, dt_reserva, dt_check_in, dt_check_out, reserva_status, check_in_status, check_out_status, quarto_id, hospede_id) " +
-            "VALUES (@QtdHospedes, @DataReserva, @DataCheckIn, @DataCheckOut, @StatusReserva, @StatusCheckIn, @StatusCheckOut, @Quarto, @Hospede)";
+            string query = "EXEC sp_insert_reserva @QtdHospedes, @DataReserva, @DataCheckIn, @DataCheckOut, @StatusReserva, @StatusCheckIn, @StatusCheckOut, @Quarto, @Hospede";
 
             dataBase.AddParameter("@QtdHospedes",    reserva.QtdHospedes      );
             dataBase.AddParameter("@DataReserva",    reserva.DtReserva        );
@@ -30,27 +28,17 @@ namespace YourRoom.Controllers
 
             dataBase.ExecuteManipulation(CommandType.Text, query);
 
-            return Convert.ToInt32(dataBase.ExecuteQueryScalar(CommandType.Text, "SELECT MAX(id) FROM tb_reservas"));
+            return Convert.ToInt32(dataBase.ExecuteQueryScalar(CommandType.Text, "EXEC sp_get_last_reserva"));
         }
         #endregion
 
         #region Alterar
         public int Alterar(Reserva reserva)
         {
-            string query =
-                "UPDATE tb_reservas SET " +
-                    "qtd_hospedes     = @QtdHospedes,    " +
-                    "dt_reserva       = @DataReserva,    " +
-                    "dt_check_in      = @DataCheckIn,    " +
-                    "dt_check_out     = @DataCheckOut,   " +
-                    "reserva_status   = @StatusReserva,  " +
-                    "check_in_status  = @StatusCheckIn,  " +
-                    "check_out_status = @StatusCheckOut, " +
-                    "quarto_id        = @Quarto,         " +
-                    "hospede_id       = @Hospede,        " +
-                "WHERE id = @IdReserva";
+            string query = "EXEC sp_insert_reserva @IdReserva, @QtdHospedes, @DataReserva, @DataCheckIn, @DataCheckOut, @StatusReserva, @StatusCheckIn, @StatusCheckOut, @Quarto, @Hospede";
 
             dataBase.ClearParameter();
+            dataBase.AddParameter("@IdReserva", reserva.IdReserva);
             dataBase.AddParameter("@QtdHospedes", reserva.QtdHospedes);
             dataBase.AddParameter("@DataReserva", reserva.DtReserva);
             dataBase.AddParameter("@DataCheckIn", reserva.DtCheckIn);
@@ -66,12 +54,12 @@ namespace YourRoom.Controllers
         #endregion
 
         #region Alterar
-        public int Apagar(int IdQuarto, int IdHospede)
+        public int Apagar(int IdReserva, int IdHospede)
         {
-            string query = "DELETE FROM tb_reservas WHERE quarto_id = @IdQuarto AND hospede_id = @IdHospede";
+            string query = "DELETE FROM tb_reservas WHERE id = @IdReserva AND hospede_id = @IdHospede";
 
             dataBase.ClearParameter();
-            dataBase.AddParameter("@IdQuarto", IdQuarto);
+            dataBase.AddParameter("@IdReserva", IdReserva);
             dataBase.AddParameter("@IdHospede", IdHospede);
 
             return dataBase.ExecuteManipulation(CommandType.Text, query);

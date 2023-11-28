@@ -79,6 +79,7 @@
             this.btnSelecionar.TabIndex = 32;
             this.btnSelecionar.Text = "Selecionar";
             this.btnSelecionar.UseVisualStyleBackColor = true;
+            this.btnSelecionar.Click += new System.EventHandler(this.btnSelecionar_Click);
             // 
             // btnCadastrar
             // 
@@ -89,6 +90,7 @@
             this.btnCadastrar.TabIndex = 31;
             this.btnCadastrar.Text = "Cadastrar";
             this.btnCadastrar.UseVisualStyleBackColor = true;
+            this.btnCadastrar.Click += new System.EventHandler(this.btnCadastrar_Click);
             // 
             // btnAlterar
             // 
@@ -99,6 +101,7 @@
             this.btnAlterar.TabIndex = 30;
             this.btnAlterar.Text = "Alterar";
             this.btnAlterar.UseVisualStyleBackColor = true;
+            this.btnAlterar.Click += new System.EventHandler(this.btnAlterar_Click);
             // 
             // btnExcluir
             // 
@@ -109,6 +112,7 @@
             this.btnExcluir.TabIndex = 29;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
             // btnVisualizar
             // 
@@ -119,6 +123,7 @@
             this.btnVisualizar.TabIndex = 28;
             this.btnVisualizar.Text = "Visualizar";
             this.btnVisualizar.UseVisualStyleBackColor = true;
+            this.btnVisualizar.Click += new System.EventHandler(this.btnVisualizar_Click);
             // 
             // btnPesquisar
             // 
@@ -129,6 +134,7 @@
             this.btnPesquisar.TabIndex = 27;
             this.btnPesquisar.Text = "Pesquisar";
             this.btnPesquisar.UseVisualStyleBackColor = true;
+            this.btnPesquisar.Click += new System.EventHandler(this.btnPesquisar_Click);
             // 
             // txtPesquisa
             // 
@@ -152,7 +158,7 @@
             // 
             // colId
             // 
-            this.colId.DataPropertyName = "IdHospede";
+            this.colId.DataPropertyName = "IdUsuario";
             this.colId.HeaderText = "Código";
             this.colId.Name = "colId";
             this.colId.ReadOnly = true;
@@ -189,6 +195,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmUsuario";
             this.Text = "frmUsuario";
+            this.Load += new System.EventHandler(this.frmUsuario_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRegistros)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

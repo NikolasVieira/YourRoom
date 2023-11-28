@@ -169,11 +169,8 @@
             // 
             this.cbxNivelAcesso.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxNivelAcesso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxNivelAcesso.FormattingEnabled = true;
-            this.cbxNivelAcesso.Items.AddRange(new object[] {
-            "0 - Gerente",
-            "1 - Atendente",
-            "2 - Terceirizado"});
             this.cbxNivelAcesso.Location = new System.Drawing.Point(14, 171);
             this.cbxNivelAcesso.Name = "cbxNivelAcesso";
             this.cbxNivelAcesso.Size = new System.Drawing.Size(200, 21);

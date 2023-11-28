@@ -9,12 +9,12 @@ namespace YourRoom.Views
     public partial class frmUsuarioForm : Form
     {
         FormType formTypeSelecionado;
-        NivelAcesso nivelAcesso;
         Usuario usuarioSelecionado;
 
         public frmUsuarioForm(FormType formType, Usuario usuario)
         {
             InitializeComponent();
+            InitializeComboBox();
             this.formTypeSelecionado = formType;
             this.usuarioSelecionado = usuario;
 
@@ -38,13 +38,19 @@ namespace YourRoom.Views
             }
         }
 
+        private void InitializeComboBox()
+        {
+            // Adiciona na combo box os valores do enumerador
+            cbxNivelAcesso.Items.AddRange(Enum.GetNames(typeof(NivelAcesso)));
+        }
+
         private void CarregarDados()
         {
             txtId.Text = usuarioSelecionado.IdUsuario.ToString();
             txtNome.Text = usuarioSelecionado.Nome;
             txtLogin.Text = usuarioSelecionado.Login;
             txtSenha.Text = usuarioSelecionado.Senha;
-            cbxNivelAcesso.SelectedValue = usuarioSelecionado.NivelAcesso;
+            cbxNivelAcesso.SelectedIndex = usuarioSelecionado.NivelAcesso;
         }
 
         private void DesabilitarCampos()
@@ -67,13 +73,16 @@ namespace YourRoom.Views
                 usuario.Nome = txtNome.Text;
                 usuario.Login = txtLogin.Text;
                 usuario.Senha = txtSenha.Text;
-                //usuario.NivelAcesso = cbxNivelAcesso.SelectedValue;
+                usuario.NivelAcesso = cbxNivelAcesso.SelectedIndex;
 
                 UsuarioController usuarioController = new UsuarioController();
 
                 int idCadastro = 0;
 
-                if (formTypeSelecionado == FormType.Inserir) idCadastro = usuarioController.Inserir(usuario);
+                if (formTypeSelecionado == FormType.Inserir) 
+                {
+                    idCadastro = usuarioController.Inserir(usuario);
+                }
                 else
                 {
                     usuario.IdUsuario = int.Parse(txtId.Text);
