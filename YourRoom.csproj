@@ -127,6 +127,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Views\frmHospede.resx">
       <DependentUpon>frmHospede.cs</DependentUpon>
@@ -165,6 +166,38 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="images\logo-HHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\hotel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\flecha.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\calendario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\pessoa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\quarto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\cama.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\usuario-de-perfil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\botao-de-informacao.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\cadastro.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
