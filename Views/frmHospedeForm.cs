@@ -8,16 +8,16 @@ namespace YourRoom.Views
 {
     public partial class frmHospedeForm : Form
     {
-        FormType formTypeSelecionado;
+        enumFormType formTypeSelecionado;
         Hospede hospedeSelecionado;
 
-        public frmHospedeForm(FormType formType, Hospede hospede)
+        public frmHospedeForm(enumFormType formType, Hospede hospede)
         {
             InitializeComponent();
             this.formTypeSelecionado = formType;
             this.hospedeSelecionado = hospede;
 
-            if (formTypeSelecionado == FormType.Inserir)
+            if (formTypeSelecionado == enumFormType.Inserir)
             {
                 this.Text = "Cadastrar Hospede";
             }
@@ -25,7 +25,7 @@ namespace YourRoom.Views
             {
                 CarregarDados();
 
-                if (formType == FormType.Alterar)
+                if (formType == enumFormType.Alterar)
                 {
                     this.Text = "Alterar Hospede";
                 }
@@ -75,7 +75,7 @@ namespace YourRoom.Views
 
                 int idCadastro = 0;
 
-                if (formTypeSelecionado == FormType.Inserir)
+                if (formTypeSelecionado == enumFormType.Inserir)
                 {
                     idCadastro = hospedeController.Inserir(hospede);
                 }
@@ -117,7 +117,7 @@ namespace YourRoom.Views
 
         private void frmHospedeForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (formTypeSelecionado != FormType.Visualizar)
+            if (formTypeSelecionado != enumFormType.Visualizar)
             {
                 if (MessageBox.Show("Deseja realmente sair?", "Confirmação...", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 {

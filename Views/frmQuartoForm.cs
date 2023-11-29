@@ -8,22 +8,23 @@ namespace YourRoom.Views
 {
     public partial class frmQuartoForm : Form
     {
-        FormType formTypeSelecionado;
+        enumFormType formTypeSelecionado;
         Quarto quartoSelecionado;
-        public frmQuartoForm(FormType formType, Quarto quarto)
+        public frmQuartoForm(enumFormType formType, Quarto quarto)
         {
             InitializeComponent();
+            InitializeComboBox();
             this.formTypeSelecionado = formType;
             this.quartoSelecionado = quarto;
 
-            if(formTypeSelecionado == FormType.Inserir)
+            if(formTypeSelecionado == enumFormType.Inserir)
             {
                 this.Text = "Cadastrar Quarto";
             }
             else
             {
                 CarregarDados();
-                if(formType == FormType.Alterar)
+                if(formType == enumFormType.Alterar)
                 {
                     this.Text = "Alterar Quarto";
                 }
@@ -35,14 +36,21 @@ namespace YourRoom.Views
             }
         }
 
+        private void InitializeComboBox()
+        {
+            // Adiciona na combo box os valores do enumerador
+            cbxCategoria.Items.AddRange(Enum.GetNames(typeof(enumCategoria)));
+            cbxStatus.Items.AddRange(Enum.GetNames(typeof(enumStatus)));
+        }
+
         private void CarregarDados()
         {
             txtId.Text = quartoSelecionado.IdQuarto.ToString();
             txtNumero.Text = quartoSelecionado.Numero.ToString();
-            cbxCategoria.Text = quartoSelecionado.Categoria.ToString();
-            cbxStatus.Text = quartoSelecionado.Status.ToString();
+            cbxCategoria.SelectedIndex = quartoSelecionado.Categoria;
+            cbxStatus.SelectedIndex = quartoSelecionado.Status;
             txtDiaria.Text = quartoSelecionado.Diaria.ToString();
-            cbxCapacidade.Text = quartoSelecionado.Capacidade.ToString();
+            txtCapacidade.Text = quartoSelecionado.Capacidade.ToString();
         }
 
         private void DesabilitarCampos()
@@ -51,7 +59,7 @@ namespace YourRoom.Views
             cbxCategoria.Enabled = false;
             cbxStatus.Enabled = false;
             txtDiaria.ReadOnly = true;
-            cbxCapacidade.Enabled = false;
+            txtCapacidade.Enabled = false;
             btnSalvar.Visible = false;
             btnCancelar.Visible = false;
 
@@ -63,16 +71,16 @@ namespace YourRoom.Views
             {
                 Quarto quarto = new Quarto();
                 quarto.Numero = int.Parse(txtNumero.Text);
-                quarto.Categoria = int.Parse(cbxCategoria.Text);
-                quarto.Status = int.Parse(cbxStatus.Text);
-                quarto.Diaria = int.Parse(txtDiaria.Text);
-                quarto.Capacidade = int.Parse(cbxCapacidade.Text);
+                quarto.Categoria = cbxCategoria.SelectedIndex;
+                quarto.Status = cbxStatus.SelectedIndex;
+                quarto.Diaria = decimal.Parse(txtDiaria.Text);
+                quarto.Capacidade = int.Parse(txtCapacidade.Text);
 
                 QuartoController quartoController = new QuartoController();
 
                 int idCadastro = 0;
 
-                if(formTypeSelecionado == FormType.Inserir)
+                if(formTypeSelecionado == enumFormType.Inserir)
                 {
                     idCadastro = quartoController.Inserir(quarto);
                 }
@@ -115,7 +123,7 @@ namespace YourRoom.Views
 
         private void frmQuartoForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(formTypeSelecionado == FormType.Visualizar)
+            if(formTypeSelecionado == enumFormType.Visualizar)
             {
                 if (MessageBox.Show("Deseja realmente sair?", "Confirmação...", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 {

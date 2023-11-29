@@ -103,7 +103,7 @@ namespace YourRoom.Views
         
 
         // Método para abrir a pagina de formulario, espera de parametros o tipo de formulario e o objeto que vai ser utilizado
-        private void Formulario(FormType formType, Hospede hospede)
+        private void Formulario(enumFormType formType, Hospede hospede)
         {
             // Instancia o objeto do formulario com os parametros do mmétodo
             frmHospedeForm frm = new frmHospedeForm(formType, hospede);
@@ -111,7 +111,7 @@ namespace YourRoom.Views
             frm.ShowDialog();
 
             // Se o tipo de formulario for visualizar, atualiza os dados
-            if (formType != FormType.Visualizar)
+            if (formType != enumFormType.Visualizar)
             {
                 Pesquisar();
             }
@@ -156,17 +156,17 @@ namespace YourRoom.Views
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            Formulario(FormType.Inserir, null);
+            Formulario(enumFormType.Inserir, null);
         }
 
         private void btnAlterar_Click(object sender, EventArgs e)
         {
-            Formulario(FormType.Alterar, Recuperar());
+            Formulario(enumFormType.Alterar, Recuperar());
         }
 
         private void btnVisualizar_Click(object sender, EventArgs e)
         {
-            Formulario(FormType.Visualizar, Recuperar());
+            Formulario(enumFormType.Visualizar, Recuperar());
         }
         #endregion
 

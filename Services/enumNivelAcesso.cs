@@ -1,6 +1,6 @@
 ﻿namespace YourRoom.Services
 {
-    public enum NivelAcesso
+    public enum enumNivelAcesso
     {
         Gerente,
         Atendente,

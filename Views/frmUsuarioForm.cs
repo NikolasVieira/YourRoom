@@ -8,17 +8,17 @@ namespace YourRoom.Views
 {
     public partial class frmUsuarioForm : Form
     {
-        FormType formTypeSelecionado;
+        enumFormType formTypeSelecionado;
         Usuario usuarioSelecionado;
 
-        public frmUsuarioForm(FormType formType, Usuario usuario)
+        public frmUsuarioForm(enumFormType formType, Usuario usuario)
         {
             InitializeComponent();
             InitializeComboBox();
             this.formTypeSelecionado = formType;
             this.usuarioSelecionado = usuario;
 
-            if (formTypeSelecionado == FormType.Inserir)
+            if (formTypeSelecionado == enumFormType.Inserir)
             {
                 this.Text = "Cadastrar Usuario";
             }
@@ -26,7 +26,7 @@ namespace YourRoom.Views
             {
                 CarregarDados();
 
-                if (formType == FormType.Alterar)
+                if (formType == enumFormType.Alterar)
                 {
                     this.Text = "Alterar Usuario";
                 }
@@ -41,7 +41,7 @@ namespace YourRoom.Views
         private void InitializeComboBox()
         {
             // Adiciona na combo box os valores do enumerador
-            cbxNivelAcesso.Items.AddRange(Enum.GetNames(typeof(NivelAcesso)));
+            cbxNivelAcesso.Items.AddRange(Enum.GetNames(typeof(enumNivelAcesso)));
         }
 
         private void CarregarDados()
@@ -79,7 +79,7 @@ namespace YourRoom.Views
 
                 int idCadastro = 0;
 
-                if (formTypeSelecionado == FormType.Inserir) 
+                if (formTypeSelecionado == enumFormType.Inserir) 
                 {
                     idCadastro = usuarioController.Inserir(usuario);
                 }
@@ -121,7 +121,7 @@ namespace YourRoom.Views
 
         private void frmUsuarioForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (formTypeSelecionado != FormType.Visualizar)
+            if (formTypeSelecionado != enumFormType.Visualizar)
             {
                 if (MessageBox.Show("Deseja realmente sair?", "Confirmação...", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 {

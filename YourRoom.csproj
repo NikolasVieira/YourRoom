@@ -61,8 +61,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DataBaseSqlServer.cs" />
-    <Compile Include="Services\FormType.cs" />
-    <Compile Include="Services\NivelAcesso.cs" />
+    <Compile Include="Services\enumFormType.cs" />
+    <Compile Include="Services\enumCategoria.cs" />
+    <Compile Include="Services\enumStatus.cs" />
+    <Compile Include="Services\enumNivelAcesso.cs" />
     <Compile Include="Views\frmHospede.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +142,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmQuartoForm.resx">
       <DependentUpon>frmQuartoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmReserva.resx">
+      <DependentUpon>frmReserva.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmUsuario.resx">
       <DependentUpon>frmUsuario.cs</DependentUpon>

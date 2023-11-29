@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using YourRoom.Controllers;
 using YourRoom.Models;
@@ -44,7 +37,7 @@ namespace YourRoom.Views
             }
             else
             {
-                quartoCollection = quartoController.ConsultarPorNumero(int.Parse(txtPesquisa.Text));
+                quartoCollection = quartoController.Select();
             }
 
             dgvRegistros.DataSource = quartoCollection;
@@ -95,12 +88,12 @@ namespace YourRoom.Views
         }
 
 
-        private void Formulario(FormType formType, Quarto quarto)
+        private void Formulario(enumFormType formType, Quarto quarto)
         {
-            frmQuartoForm frm = new frmQuartoForm(formType,quarto);
+            frmQuartoForm frm = new frmQuartoForm(formType, quarto);
             frm.ShowDialog();
 
-            if(formType != FormType.Visualizar)
+            if(formType != enumFormType.Visualizar)
             {
                 Pesquisar();
             }
@@ -114,8 +107,6 @@ namespace YourRoom.Views
                 this.DialogResult = DialogResult.OK;
             }
         }
-
-        
 
         private void frmQuarto_Load(object sender, EventArgs e)
         {
@@ -140,19 +131,21 @@ namespace YourRoom.Views
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            Formulario(FormType.Inserir, null);
+            Formulario(enumFormType.Inserir, null);
         }
 
         private void btnAlterar_Click(object sender, EventArgs e)
         {
-            Formulario(FormType.Alterar, Recuperar());
+            Formulario(enumFormType.Alterar, Recuperar());
         }
 
         private void btnVisualizar_Click(object sender, EventArgs e)
         {
-            Formulario(FormType.Visualizar, Recuperar());
+            Formulario(enumFormType.Visualizar, Recuperar());
         }
 
         #endregion
+
+
     }
 }

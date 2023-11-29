@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvRegistros = new System.Windows.Forms.DataGridView();
             this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNumero = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,8 +52,8 @@
             this.dgvRegistros.AllowUserToOrderColumns = true;
             this.dgvRegistros.AllowUserToResizeColumns = false;
             this.dgvRegistros.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgvRegistros.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgvRegistros.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvRegistros.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -74,7 +74,7 @@
             // 
             // colId
             // 
-            this.colId.DataPropertyName = "IdHospede";
+            this.colId.DataPropertyName = "IdQuarto";
             this.colId.HeaderText = "Código";
             this.colId.Name = "colId";
             this.colId.ReadOnly = true;
@@ -205,6 +205,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmQuarto";
             this.Text = "frmQuarto";
+            this.Load += new System.EventHandler(this.frmQuarto_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRegistros)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

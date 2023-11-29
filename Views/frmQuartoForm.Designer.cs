@@ -41,7 +41,7 @@
             this.txtDiaria = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.cbxCapacidade = new System.Windows.Forms.ComboBox();
+            this.txtCapacidade = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnCancelar
@@ -116,11 +116,6 @@
             this.cbxCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxCategoria.FormattingEnabled = true;
-            this.cbxCategoria.Items.AddRange(new object[] {
-            "Comum",
-            "Modesto",
-            "Luxo",
-            "VIP"});
             this.cbxCategoria.Location = new System.Drawing.Point(11, 99);
             this.cbxCategoria.Name = "cbxCategoria";
             this.cbxCategoria.Size = new System.Drawing.Size(269, 21);
@@ -155,10 +150,6 @@
             this.cbxStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxStatus.FormattingEnabled = true;
-            this.cbxStatus.Items.AddRange(new object[] {
-            "Disponivel",
-            "Ocupado",
-            "Aguardando Limpeza"});
             this.cbxStatus.Location = new System.Drawing.Point(11, 139);
             this.cbxStatus.Name = "cbxStatus";
             this.cbxStatus.Size = new System.Drawing.Size(269, 21);
@@ -198,28 +189,23 @@
             this.label6.TabIndex = 44;
             this.label6.Text = "Capacidade do Quarto";
             // 
-            // cbxCapacidade
+            // txtCapacidade
             // 
-            this.cbxCapacidade.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtCapacidade.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbxCapacidade.FormattingEnabled = true;
-            this.cbxCapacidade.Items.AddRange(new object[] {
-            "Solteiro (1 Hospede)",
-            "Casal (2 Hospedes)",
-            "Familia (4 Hospedes)",
-            "Grupo (6 Hospedes)"});
-            this.cbxCapacidade.Location = new System.Drawing.Point(11, 216);
-            this.cbxCapacidade.Name = "cbxCapacidade";
-            this.cbxCapacidade.Size = new System.Drawing.Size(269, 21);
-            this.cbxCapacidade.TabIndex = 43;
+            this.txtCapacidade.Location = new System.Drawing.Point(11, 215);
+            this.txtCapacidade.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCapacidade.Name = "txtCapacidade";
+            this.txtCapacidade.Size = new System.Drawing.Size(270, 20);
+            this.txtCapacidade.TabIndex = 45;
             // 
             // frmQuartoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(294, 288);
+            this.Controls.Add(this.txtCapacidade);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.cbxCapacidade);
             this.Controls.Add(this.txtDiaria);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -254,6 +240,6 @@
         private System.Windows.Forms.TextBox txtDiaria;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cbxCapacidade;
+        private System.Windows.Forms.TextBox txtCapacidade;
     }
 }

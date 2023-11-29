@@ -14,9 +14,7 @@ namespace YourRoom.Controllers
         {
             dataBase.ClearParameter();
 
-            string query =
-            "INSERT INTO tb_usuarios (nome , login, senha, nivel_acesso) " +
-            "VALUES (@Nome, @Login, @Senha, @NivelAcesso)";
+            string query = "EXEC sp_insert_usuario @Nome, @Login, @Senha, @NivelAcesso";
 
             dataBase.AddParameter("@Nome", usuario.Nome);
             dataBase.AddParameter("@Login", usuario.Login);
@@ -32,13 +30,7 @@ namespace YourRoom.Controllers
         #region Alterar
         public int Alterar(Usuario usuario)
         {
-            string query =
-                "UPDATE tb_usuarios SET " +
-                "nome = @Nome, " +
-                "login = @Login, " +
-                "senha = @Senha, " +
-                "nivel_acesso  = @NivelAcesso, " +
-                "WHERE id = @IdUsuario";
+            string query = "EXEC sp_update_usuario @IdUsuario, @Nome, @Login, @Senha, @NivelAcesso";
 
             dataBase.ClearParameter();
             dataBase.AddParameter("@Nome", usuario.Nome);
@@ -54,9 +46,7 @@ namespace YourRoom.Controllers
         #region Apagar
         public int Apagar(int IdUsuario)
         {
-            string query =
-                "DELETE FROM tb_usuarios " +
-                "WHERE id = @IdUsuario";
+            string query = "EXEC sp_delete_usuario @IdUsuario";
 
             dataBase.ClearParameter();
             dataBase.AddParameter("@IdUsuario", IdUsuario);
@@ -69,9 +59,8 @@ namespace YourRoom.Controllers
         public UsuarioCollection ConsultarPorNome(string nome)
         {
             UsuarioCollection usuarioCollection = new UsuarioCollection();
-            string query =
-                "SELECT * FROM tb_usuarios " +
-                "WHERE nome LIKE '%' + @Nome + '%'";
+
+            string query = "EXEC sp_get_usuario_nome @Nome";
 
             dataBase.ClearParameter();
             dataBase.AddParameter("@Nome", nome.Trim());
@@ -97,9 +86,7 @@ namespace YourRoom.Controllers
         #region ConsultarPorId
         public Usuario ConsultarPorId(int IdUsuario)
         {
-            string query =
-                "SELECT * FROM tb_usuarios " +
-                "WHERE id = @IdUsuario";
+            string query = "EXEC sp_get_usuario @IdUsuario";
 
             dataBase.ClearParameter();
             dataBase.AddParameter("@IdUsuario", IdUsuario);

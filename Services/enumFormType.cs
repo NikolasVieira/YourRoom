@@ -1,6 +1,6 @@
 ﻿namespace YourRoom.Services
 {
-    public enum FormType
+    public enum enumFormType
     {
         Inserir,
         Alterar,

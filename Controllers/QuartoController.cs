@@ -9,6 +9,7 @@ namespace YourRoom.Controllers
     {
         DataBaseSqlServer dataBase = new DataBaseSqlServer();
 
+
         #region Inserir
         public int Inserir(Quarto quarto)
         {
@@ -113,5 +114,33 @@ namespace YourRoom.Controllers
                 return null;
         }
         #endregion
+
+        public QuartoCollection Select()
+        {
+            QuartoCollection quartoCollection = new QuartoCollection();
+
+            string query = "SELECT * FROM tb_quartos";
+
+            dataBase.ClearParameter();
+
+            DataTable dataTable = dataBase.ExecuteQuery(CommandType.Text, query);
+
+            foreach (DataRow dataRow in dataTable.Rows)
+            {
+                Quarto quarto = new Quarto();
+
+                quarto.IdQuarto = Convert.ToInt32(dataRow["id"]);
+                quarto.Numero = Convert.ToInt32(dataRow["numero"]);
+                quarto.Categoria = Convert.ToInt32(dataRow["categoria"]);
+                quarto.Status = Convert.ToInt32(dataRow["status"]);
+                quarto.Diaria = Convert.ToDecimal(dataRow["diaria"]);
+                quarto.Capacidade = Convert.ToInt32(dataRow["capacidade"]);
+
+                quartoCollection.Add(quarto);
+            }
+            return quartoCollection;
+
+        }
+
     }
 }
