@@ -32,7 +32,7 @@ namespace YourRoom.Controllers
         #region Alterar
         public int Alterar(Quarto quarto)
         {
-            string query = "EXEC sp_insert_quarto @id, @numero, @categoria, @status, @diaria, @capacidade";
+            string query = "EXEC sp_update_quarto @id, @numero, @categoria, @status, @diaria, @capacidade";
 
             dataBase.ClearParameter();
             dataBase.AddParameter("@id", quarto.IdQuarto);

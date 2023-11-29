@@ -88,7 +88,7 @@ namespace YourRoom.Controllers
                 reserva.DtReserva      = Convert.ToDateTime(dataRow["dt_reserva"]);
                 reserva.DtCheckIn      = Convert.ToDateTime(dataRow["dt_check_in"]);
                 reserva.DtCheckOut     = Convert.ToDateTime(dataRow["dt_check_out"]);
-                reserva.StatusReserva  = Convert.ToInt32(dataRow["status_reserva"]);
+                reserva.StatusReserva  = Convert.ToInt32(dataRow["reserva_status"]);
                 reserva.StatusCheckIn  = Convert.ToInt32(dataRow["check_in_status"]);
                 reserva.StatusCheckOut = Convert.ToInt32(dataRow["check_out_status"]);
                 reserva.Quarto  = quartoController.ConsultarPorId(Convert.ToInt32(dataRow["quarto_id"]));
@@ -97,6 +97,74 @@ namespace YourRoom.Controllers
                 reservaCollection.Add(reserva);
             }
             return reservaCollection;
+        }
+        #endregion
+
+        #region ConsultarTodosQuartosReservados
+        public ReservaCollection ConsultarReservas()
+        {
+            ReservaCollection reservaCollection = new ReservaCollection();
+            QuartoController quartoController = new QuartoController();
+            HospedeController hospedeController = new HospedeController();
+
+            string query = "SELECT * FROM tb_reservas";
+
+            dataBase.ClearParameter();
+
+            DataTable dataTable = dataBase.ExecuteQuery(CommandType.Text, query);
+
+            foreach (DataRow dataRow in dataTable.Rows)
+            {
+                Reserva reserva = new Reserva();
+
+                reserva.QtdHospedes = Convert.ToInt32(dataRow["qtd_hospedes"]);
+                reserva.DtReserva = Convert.ToDateTime(dataRow["dt_reserva"]);
+                reserva.DtCheckIn = Convert.ToDateTime(dataRow["dt_check_in"]);
+                reserva.DtCheckOut = Convert.ToDateTime(dataRow["dt_check_out"]);
+                reserva.StatusReserva = Convert.ToInt32(dataRow["reserva_status"]);
+                reserva.StatusCheckIn = Convert.ToInt32(dataRow["check_in_status"]);
+                reserva.StatusCheckOut = Convert.ToInt32(dataRow["check_out_status"]);
+                reserva.Quarto = quartoController.ConsultarPorId(Convert.ToInt32(dataRow["quarto_id"]));
+                reserva.Hospede = hospedeController.ConsultarPorId(Convert.ToInt32(dataRow["hospede_id"]));
+
+                reservaCollection.Add(reserva);
+            }
+            return reservaCollection;
+        }
+        #endregion
+
+        #region ConsultarPorId
+        public Reserva ConsultarPorId(int IdReserva)
+        {
+            QuartoController quartoController = new QuartoController();
+            HospedeController hospedeController = new HospedeController();
+
+            string query = "EXEC sp_get_reserva @Id";
+
+            dataBase.ClearParameter();
+            dataBase.AddParameter("@Id", IdReserva);
+
+            DataTable dataTable = dataBase.ExecuteQuery(CommandType.Text, query);
+
+                
+            if (dataTable.Rows.Count > 0)
+            {
+                Reserva reserva = new Reserva();
+
+                reserva.QtdHospedes = Convert.ToInt32(dataTable.Rows[0]["qtd_hospedes"]);
+                reserva.DtReserva = Convert.ToDateTime(dataTable.Rows[0]["dt_reserva"]);
+                reserva.DtCheckIn = Convert.ToDateTime(dataTable.Rows[0]["dt_check_in"]);
+                reserva.DtCheckOut = Convert.ToDateTime(dataTable.Rows[0]["dt_check_out"]);
+                reserva.StatusReserva = Convert.ToInt32(dataTable.Rows[0]["reserva_status"]);
+                reserva.StatusCheckIn = Convert.ToInt32(dataTable.Rows[0]["check_in_status"]);
+                reserva.StatusCheckOut = Convert.ToInt32(dataTable.Rows[0]["check_out_status"]);
+                reserva.Quarto = quartoController.ConsultarPorId(Convert.ToInt32(dataTable.Rows[0]["quarto_id"]));
+                reserva.Hospede = hospedeController.ConsultarPorId(Convert.ToInt32(dataTable.Rows[0]["hospede_id"]));
+
+                return reserva;
+            }
+            else
+                return null;
         }
         #endregion
     }
